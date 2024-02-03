@@ -20,10 +20,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: Duration(milliseconds: 1000), // Duration of the pulsating animation
+      duration: Duration(milliseconds: 2000), // Duration of the pulsating animation
       vsync: this,
     );
-    _animation = Tween<double>(begin: 1.0, end: 1.1).animate(
+    _animation = Tween<double>(begin: 1.0, end: 1.3).animate(
       CurvedAnimation(
         parent: _controller!,
         curve: Curves.easeInOut,
