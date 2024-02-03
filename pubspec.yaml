@@ -1,0 +1,28 @@
+name: smawa
+description: A new Flutter project.
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  aws_rekognition_api: ^2.0.0
+  path_provider: ^2.1.2
+  go_router: ^13.1.0
+  super_circle: ^1.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/image1.jpg
+    - assets/background_circle.png
