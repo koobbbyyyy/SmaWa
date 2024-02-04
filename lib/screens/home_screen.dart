@@ -5,10 +5,10 @@ import 'package:camera/camera.dart'; // Import the camera package
 import 'package:smawa/routing/AppRouter.dart';
 import 'package:smawa/services/aws.dart';
 import 'package:smawa/services/camera.dart';
-import 'package:smawa/widgets/pulsating_button.dart';
 
+// ignore: must_be_immutable
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -17,6 +17,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   final AwsService awsService = AwsService();
   late CameraService cameraService;
+
+  int ageLow = 0;
+  int ageHigh = 0;
 
   @override
   void initState() {
@@ -54,12 +57,20 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         final ageHigh = faceDetail.ageRange?.high ?? 0;
         final estimatedAge = (ageLow + ageHigh) ~/ 2;
         final gender = faceDetail.gender?.value;
+        this.ageHigh = ageHigh;
+        this.ageLow = ageLow;
+        setState(() {
+          // Aktualisieren Sie die UI mit dem geschätzten Alter
+        });
         print(estimatedAge);
         print(gender);
         print('I think you are between $ageLow and $ageHigh');
 
-        // Call function to navigate based on age and gender
-        AppRouter.navigateBasedOnAgeAndGender(context, estimatedAge, gender!);
+      // Call function to navigate based on age and gender
+      Future.delayed(Duration(seconds: 3), () {
+        AppRouter.navigateBasedOnAgeAndGender(context, estimatedAge, gender!);  
+      });
+
       } else {
         print("No faces detected.");
       }
@@ -89,7 +100,7 @@ Future<Uint8List> _loadImageBytes(String imagePath) async {
     super.dispose();
   }
 
-  @override
+@override
 Widget build(BuildContext context) {
   return Stack(
     children: [
@@ -108,13 +119,35 @@ Widget build(BuildContext context) {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              /* JarvisButton(onPressed: _capturePhoto), */
               GestureDetector(
-                onTap: _capturePhoto, // button triggers foto __
+                onTap: _capturePhoto, // Call _capturePhoto directly
                 child: Image.asset(
-                  'assets/sphere.gif', // Path to your spherical GIF in the assets folder
-                  width: 450, // Set the width of the GIF
-                  height: 450, // Set the height of the GIF
+                  'assets/sphere.gif',
+                  width: 450,
+                  height: 450,
+                ),
+              ),
+              const SizedBox(height: 20), // Add some spacing between the image and text
+              Text(
+                'I think you are between $ageLow and $ageHigh',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                ),
+              ),
+              // ToDo: Implement shoe style
+              Text(
+                'It looks like you like to wear ${ageLow}',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                ),
+              ),
+              const Text(
+                'Let me check what we have for you...',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
                 ),
               ),
             ],
@@ -124,4 +157,6 @@ Widget build(BuildContext context) {
     ],
   );
 }
+
+
 }

@@ -18,6 +18,7 @@ dependencies:
   flutter_dotenv: ^5.1.0
   camera_windows: ^0.2.1+9
   camera: ^0.10.5+9
+  progress_indicators: ^1.0.0
 
 dev_dependencies:
   flutter_test:
