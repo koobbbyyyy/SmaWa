@@ -54,7 +54,7 @@ class _PulsatingButtonState extends State<PulsatingButton> with SingleTickerProv
         onPressed: widget.onPressed,
         style: ElevatedButton.styleFrom(
           shape: const CircleBorder(), // Make the button circular
-          padding: const EdgeInsets.all(80), // Adjust the padding to control button size
+          padding: const EdgeInsets.all(120), // Adjust the padding to control button size
           backgroundColor: Colors.white, // Button background color
           elevation: 10, // Add shadow
         ),
