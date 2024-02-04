@@ -4,7 +4,7 @@ import 'package:smawa/routing/AppRouter.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: 'secrets.env');
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

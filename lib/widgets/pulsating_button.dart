@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class PulsatingButton extends StatefulWidget {
   final VoidCallback onPressed;
 
-  PulsatingButton({required this.onPressed});
+  const PulsatingButton({super.key, required this.onPressed});
 
   @override
   _PulsatingButtonState createState() => _PulsatingButtonState();
@@ -18,7 +18,7 @@ class _PulsatingButtonState extends State<PulsatingButton> with SingleTickerProv
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: Duration(milliseconds: 2000), // Duration of the pulsating animation
+      duration: const Duration(milliseconds: 2000), // Duration of the pulsating animation
       vsync: this,
     );
     _animation = Tween<double>(begin: 1.0, end: 1.3).animate(
@@ -53,12 +53,12 @@ class _PulsatingButtonState extends State<PulsatingButton> with SingleTickerProv
       child: ElevatedButton(
         onPressed: widget.onPressed,
         style: ElevatedButton.styleFrom(
-          shape: CircleBorder(), // Make the button circular
-          padding: EdgeInsets.all(80), // Adjust the padding to control button size
+          shape: const CircleBorder(), // Make the button circular
+          padding: const EdgeInsets.all(80), // Adjust the padding to control button size
           backgroundColor: Colors.white, // Button background color
           elevation: 10, // Add shadow
         ),
-        child: SizedBox(), // Empty SizedBox to create a round button without text
+        child: const SizedBox(), // Empty SizedBox to create a round button without text
       ),
     );
   }

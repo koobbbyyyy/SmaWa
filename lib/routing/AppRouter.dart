@@ -20,8 +20,8 @@ import 'package:smawa/screens/male/male-61-120_screen.dart';
 import 'package:smawa/screens/male/male-7-12_screen.dart';
 
 class AppRouter {
-  static final String ageGroup = '0-6';
-  static final String gender = 'male';
+  static const String ageGroup = '0-6';
+  static const String gender = 'male';
 
   static void navigateBasedOnAgeAndGender(
       BuildContext context, int age, GenderType gender) {
@@ -41,8 +41,9 @@ class AppRouter {
   }
 
   static String _getMaleRoute(int age) {
-    if (age <= 6) return '/maleZeroToSix';
-    else if (age <= 12) return '/maleSevenToTwelve';
+    if (age <= 6) {
+      return '/maleZeroToSix';
+    } else if (age <= 12) return '/maleSevenToTwelve';
     else if (age <= 20) return '/maleThirteenToTwenty';
     else if (age <= 30) return '/maleTwentyOneToThirty';
     else if (age <= 40) return '/maleThirtyOneToFourty';
@@ -52,8 +53,9 @@ class AppRouter {
   }
 
   static String _getFemaleRoute(int age) {
-    if (age <= 6) return '/femaleZeroToSix';
-    else if (age <= 12) return '/femaleSevenToTwelve';
+    if (age <= 6) {
+      return '/femaleZeroToSix';
+    } else if (age <= 12) return '/femaleSevenToTwelve';
     else if (age <= 20) return '/femaleThirteenToTwenty';
     else if (age <= 30) return '/femaleTwentyOneToThirty';
     else if (age <= 40) return '/femaleThirtyOneToFourty';

@@ -23,7 +23,7 @@ class MaleThirtyOneToFourty extends StatelessWidget {
                 // Navigate back to the home screen
                 AppRouter.router.go('/');
               },
-              child: Text('Go Back to Home'),
+              child: const Text('Go Back to Home'),
             ),
           ],
         ),

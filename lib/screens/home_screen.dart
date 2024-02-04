@@ -1,10 +1,8 @@
-import 'package:aws_rekognition_api/rekognition-2016-06-27.dart';
 import 'package:flutter/material.dart';
 import 'dart:typed_data';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:aws_rekognition_api/rekognition-2016-06-27.dart' as rekognitionlibary;
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:smawa/routing/AppRouter.dart';
+import 'package:smawa/services/aws.dart';
 import 'package:smawa/widgets/pulsating_button.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,28 +13,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+ // instance of the aws service
+ final AwsService awsService = AwsService(); 
 
   // Detect Faces function
   Future<void> detectFaces() async {
-    // AWS KEYS
-    final credentials = rekognitionlibary.AwsClientCredentials(
-      accessKey: dotenv.env['ACCESS_KEY']!,
-      secretKey: dotenv.env['SECRET_KEY']!,
-    );
-    final rekognition = rekognitionlibary.Rekognition(
-      region: 'eu-central-1',
-      credentials: credentials,
-    );
-
-    // get the image
+    
     try {
-      final imageBytes = await _loadImageBytes('image1.jpg'); // Your image path
-      final response = await rekognition.detectFaces(
-        image: rekognitionlibary.Image(bytes: imageBytes),
-        attributes: [rekognitionlibary.Attribute.all],
-      );
-
-      // get the data from aws
+      final imageBytes = await _loadImageBytes('image1.jpg'); // get the image
+      // Detect Faces function of the aws service
+      final response = await awsService.detectFaces(imageBytes); // get the data from aws
       if (response.faceDetails != null && response.faceDetails!.isNotEmpty) {
         final faceDetail = response.faceDetails!.first;
         final ageLow = faceDetail.ageRange?.low ?? 0;
@@ -68,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       children: [
         // Animated background
         Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [Colors.black, Colors.black87],
               begin: Alignment.topCenter,
