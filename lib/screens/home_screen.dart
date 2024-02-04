@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:typed_data'; // Import for Uint8List
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:aws_rekognition_api/rekognition-2016-06-27.dart' as rekognitionlibary;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:smawa/routing/AppRouter.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,8 +14,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
-  AnimationController? _controller;
-  Animation<double>? _animation;
+  late AnimationController _controller;
+  late Animation<double> _animation;
 
   @override
   void initState() {
@@ -25,38 +26,39 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
     _animation = Tween<double>(begin: 1.0, end: 1.3).animate(
       CurvedAnimation(
-        parent: _controller!,
+        parent: _controller,
         curve: Curves.easeInOut,
       ),
     )..addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          _controller!.reverse();
-        } else if (status == AnimationStatus.dismissed) {
-          _controller!.forward();
-        }
-      });
+      if (status == AnimationStatus.completed) {
+        _controller.reverse();
+      } else if (status == AnimationStatus.dismissed) {
+        _controller.forward();
+      }
+    });
 
-    _controller!.forward(); // Start the animation when opening the page
+    _controller.forward(); // Start the animation when opening the page
   }
 
   @override
   void dispose() {
-    _controller?.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
   // Detect Faces function
   Future<void> detectFaces() async {
-    // Replace with secure retrieval of credentials
+    // AWS KEYS
     final credentials = rekognitionlibary.AwsClientCredentials(
-      accessKey: 'AKIATCKANHU27L3LKV6H',
-      secretKey: '5bJm+qKlJNuCTfWm52haNTpL/twTfj1wdkuNW1Qw',
+      accessKey: dotenv.env['ACCESS_KEY']!,
+      secretKey: dotenv.env['SECRET_KEY']!,
     );
     final rekognition = rekognitionlibary.Rekognition(
       region: 'eu-central-1',
       credentials: credentials,
     );
 
+    // get the image
     try {
       final imageBytes = await _loadImageBytes('image1.jpg'); // Your image path
       final response = await rekognition.detectFaces(
@@ -64,6 +66,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         attributes: [rekognitionlibary.Attribute.all],
       );
 
+      // get the data from aws
       if (response.faceDetails != null && response.faceDetails!.isNotEmpty) {
         final faceDetail = response.faceDetails!.first;
         final ageLow = faceDetail.ageRange?.low ?? 0;
@@ -73,7 +76,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         print(estimatedAge);
         print(gender);
 
-        _navigateBasedOnAgeAndGender(context, estimatedAge, gender); // Pass the context, estimatedAge, and gender
+        // call function to navigate baed on age and gender
+        _navigateBasedOnAgeAndGender(context, estimatedAge, gender); 
       } else {
         print("No faces detected.");
       }
@@ -82,6 +86,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     }
   }
 
+  // navigation method
   void _navigateBasedOnAgeAndGender(BuildContext context, int age, gender) {
     final goRouter = AppRouter.router;
     String route = '/'; // Default route
@@ -100,7 +105,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 
   String _getMaleRoute(int age) {
-    // Add conditions for all male age groups
     if (age <= 6) return '/maleZeroToSix';
     else if (age <= 12) return '/maleSevenToTwelve';
     else if (age <= 20) return '/maleThirteenToTwenty';
@@ -112,7 +116,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 
   String _getFemaleRoute(int age) {
-    // Add conditions for all female age groups
     if (age <= 6) return '/femaleZeroToSix';
     else if (age <= 12) return '/femaleSevenToTwelve';
     else if (age <= 20) return '/femaleThirteenToTwenty';

@@ -1,1 +1,10 @@
-flutter/ephemeral
+# Flutter/Dart/Pub related
+**/.dart_tool/
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/.generated_plugin_registrant.dart
+**/build/
+**/pubspec.lock
+
+# smawa
+secrets.env

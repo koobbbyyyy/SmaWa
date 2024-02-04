@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smawa/widgets/pulsating_button.dart';
 
 class MaleThirtyOneToFourty extends StatelessWidget {
   final String ageGroup;
@@ -13,9 +14,23 @@ class MaleThirtyOneToFourty extends StatelessWidget {
       appBar: AppBar(
         title: Text('$gender $ageGroup Werbung'),
       ),
-      body: Center(
-        child: Text('Werbung für Männer $gender im Alter von 31-40 $ageGroup'),
-      ),
+    body: Center(
+  child: Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: <Widget>[
+      Text('Werbung für Männer $gender im Alter von 31-40 $ageGroup'),
+      // Button Test
+    /*   PulsatingButton(
+          onPressed: () {
+            // Add your click logic here
+            print('Button Pressed');
+          },
+        ), */
+      // Add more Text widgets as needed
+    ],
+  ),
+),
+
     );
   }
 }
