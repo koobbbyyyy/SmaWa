@@ -12,6 +12,7 @@ class PulsatingButton extends StatefulWidget {
 class _PulsatingButtonState extends State<PulsatingButton> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
+  bool _isControllerDisposed = false; // Flag to track controller disposal
 
   @override
   void initState() {
@@ -26,6 +27,8 @@ class _PulsatingButtonState extends State<PulsatingButton> with SingleTickerProv
         curve: Curves.easeInOut,
       ),
     )..addStatusListener((status) {
+      if (_isControllerDisposed) return; // Check if controller is disposed
+
       if (status == AnimationStatus.completed) {
         _controller.reverse();
       } else if (status == AnimationStatus.dismissed) {
@@ -39,6 +42,7 @@ class _PulsatingButtonState extends State<PulsatingButton> with SingleTickerProv
   @override
   void dispose() {
     _controller.dispose();
+    _isControllerDisposed = true; // Set the flag to true when disposing controller
     super.dispose();
   }
 

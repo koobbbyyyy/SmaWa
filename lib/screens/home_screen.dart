@@ -1,10 +1,11 @@
 import 'package:aws_rekognition_api/rekognition-2016-06-27.dart';
 import 'package:flutter/material.dart';
-import 'dart:typed_data'; // Import for Uint8List
+import 'dart:typed_data';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:aws_rekognition_api/rekognition-2016-06-27.dart' as rekognitionlibary;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:smawa/routing/AppRouter.dart';
+import 'package:smawa/widgets/pulsating_button.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,37 +15,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _animation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: Duration(milliseconds: 2000), // Duration of the pulsating animation
-      vsync: this,
-    );
-    _animation = Tween<double>(begin: 1.0, end: 1.3).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Curves.easeInOut,
-      ),
-    )..addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        _controller.reverse();
-      } else if (status == AnimationStatus.dismissed) {
-        _controller.forward();
-      }
-    });
-
-    _controller.forward(); // Start the animation when opening the page
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 
   // Detect Faces function
   Future<void> detectFaces() async {
@@ -81,6 +51,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       } else {
         print("No faces detected.");
       }
+      // error handling
     } catch (e) {
       print(e);
     }
@@ -151,19 +122,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        ScaleTransition(
-          scale: _animation!,
-          child: ElevatedButton(
-            onPressed: detectFaces,
-            style: ElevatedButton.styleFrom(
-              shape: CircleBorder(), // Make the button circular
-              padding: EdgeInsets.all(80), // Adjust the padding to control button size
-              backgroundColor: Colors.white, // Button background color
-              elevation: 10, // Add shadow
-            ),
-            child: SizedBox(), // Empty SizedBox to create a round button without text
-          ),
-        ),
+     PulsatingButton(onPressed: detectFaces)
       ],
     ),
   ),
