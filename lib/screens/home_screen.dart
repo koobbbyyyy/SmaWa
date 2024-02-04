@@ -107,7 +107,7 @@ Future<Uint8List> _loadImageBytes(String imagePath) async {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                PulsatingButton(onPressed: _capturePhoto),
+                FancyPulsatingButton(onPressed: _capturePhoto),
               ],
             ),
           ),
