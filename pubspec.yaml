@@ -19,6 +19,7 @@ dependencies:
   camera_windows: ^0.2.1+9
   camera: ^0.10.5+9
   progress_indicators: ^1.0.0
+  animated_text_kit: ^4.2.2
 
 dev_dependencies:
   flutter_test:

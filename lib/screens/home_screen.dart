@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'dart:typed_data';
-import 'package:camera/camera.dart'; // Import the camera package
+import 'package:camera/camera.dart';
 import 'package:smawa/routing/AppRouter.dart';
 import 'package:smawa/services/aws.dart';
 import 'package:smawa/services/camera.dart';
+import 'package:smawa/widgets/homescreen_ai_texts.dart';
 
-// ignore: must_be_immutable
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
 
@@ -17,19 +17,19 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   final AwsService awsService = AwsService();
   late CameraService cameraService;
-
   int ageLow = 0;
   int ageHigh = 0;
+  bool isTextVisible = false;
 
   @override
   void initState() {
     super.initState();
-    cameraService = CameraService(); 
+    cameraService = CameraService();
     _initializeCamera();
   }
 
   Future<void> _initializeCamera() async {
-    await cameraService.initializeCamera(); // Use cameraService to initialize the camera
+    await cameraService.initializeCamera();
   }
 
   Future<void> _capturePhoto() async {
@@ -38,8 +38,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       final imageBytes = await _loadImageBytes(picture.path);
       print('path');
       print(picture.path);
-      // Now you can use imageBytes for your AWS service
-      // Call your detectFaces function with imageBytes
       detectFaces(imageBytes);
     } catch (e) {
       print('Fehler Bild konnte nicht geladen oder gefunden werden');
@@ -49,7 +47,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   Future<void> detectFaces(Uint8List imageBytes) async {
     try {
-      // Detect Faces function of the aws service
       final response = await awsService.detectFaces(imageBytes);
       if (response.faceDetails != null && response.faceDetails!.isNotEmpty) {
         final faceDetail = response.faceDetails!.first;
@@ -59,18 +56,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         final gender = faceDetail.gender?.value;
         this.ageHigh = ageHigh;
         this.ageLow = ageLow;
+
+        // Set isTextVisible to true
         setState(() {
-          // Aktualisieren Sie die UI mit dem geschätzten Alter
+          isTextVisible = true;
         });
-        print(estimatedAge);
-        print(gender);
-        print('I think you are between $ageLow and $ageHigh');
 
-      // Call function to navigate based on age and gender
-      Future.delayed(Duration(seconds: 3), () {
-        AppRouter.navigateBasedOnAgeAndGender(context, estimatedAge, gender!);  
-      });
-
+        // Call function to navigate based on age and gender
+        Future.delayed(Duration(seconds: 3), () {
+          AppRouter.navigateBasedOnAgeAndGender(context, estimatedAge, gender!);
+        });
       } else {
         print("No faces detected.");
       }
@@ -79,84 +74,70 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     }
   }
 
-Future<Uint8List> _loadImageBytes(String imagePath) async {
-  try {
-    final file = File(imagePath);
-    if (await file.exists()) {
-      final Uint8List imageBytes = await file.readAsBytes();
-      return imageBytes;
-    } else {
-      print('File does not exist at path: $imagePath');
-      return Uint8List(0); // Return an empty Uint8List or handle the error accordingly.
+  Future<Uint8List> _loadImageBytes(String imagePath) async {
+    try {
+      final file = File(imagePath);
+      if (await file.exists()) {
+        final Uint8List imageBytes = await file.readAsBytes();
+        return imageBytes;
+      } else {
+        print('File does not exist at path: $imagePath');
+        return Uint8List(0);
+      }
+    } catch (e) {
+      print('Error loading image: $e');
+      return Uint8List(0);
     }
-  } catch (e) {
-    print('Error loading image: $e');
-    return Uint8List(0); // Return an empty Uint8List or handle the error accordingly.
   }
-}
+
   @override
   void dispose() {
     cameraService.disposeCamera();
     super.dispose();
   }
 
-@override
-Widget build(BuildContext context) {
-  return Stack(
-    children: [
-      Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.black, Colors.black87],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.black, Colors.black87],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
           ),
         ),
-      ),
-      Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              GestureDetector(
-                onTap: _capturePhoto, // Call _capturePhoto directly
-                child: Image.asset(
-                  'assets/sphere.gif',
-                  width: 450,
-                  height: 450,
+        Scaffold(
+          backgroundColor: Colors.transparent,
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                GestureDetector(
+                  onTap: _capturePhoto,
+                  child: Image.asset(
+                    'assets/sphere.gif',
+                    width: 450,
+                    height: 450,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 20), // Add some spacing between the image and text
-              Text(
-                'I think you are between $ageLow and $ageHigh',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
+                const SizedBox(height: 20),
+                // Use Visibility widget to control text visibility
+                Visibility(
+                  visible: isTextVisible,
+                  child: Column(
+                    children: [
+                     HomeTextWidget(ageLow: ageLow, ageHigh: ageHigh,),
+                    ],
+                  ),
                 ),
-              ),
-              // ToDo: Implement shoe style
-              Text(
-                'It looks like you like to wear ${ageLow}',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                ),
-              ),
-              const Text(
-                'Let me check what we have for you...',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-      ),
-    ],
-  );
-}
-
-
+      ],
+    );
+  }
 }
