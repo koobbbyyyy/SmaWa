@@ -27,5 +27,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - assets/sphere.gif
     - assets/image1.jpg
     - secrets.env

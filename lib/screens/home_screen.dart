@@ -56,6 +56,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         final gender = faceDetail.gender?.value;
         print(estimatedAge);
         print(gender);
+        print('I think you are between $ageLow and $ageHigh');
 
         // Call function to navigate based on age and gender
         AppRouter.navigateBasedOnAgeAndGender(context, estimatedAge, gender!);
@@ -89,30 +90,38 @@ Future<Uint8List> _loadImageBytes(String imagePath) async {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.black, Colors.black87],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
+Widget build(BuildContext context) {
+  return Stack(
+    children: [
+      Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.black, Colors.black87],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
         ),
-        Scaffold(
-          backgroundColor: Colors.transparent,
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                FancyPulsatingButton(onPressed: _capturePhoto),
-              ],
-            ),
+      ),
+      Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              /* JarvisButton(onPressed: _capturePhoto), */
+              GestureDetector(
+                onTap: _capturePhoto, // button triggers foto __
+                child: Image.asset(
+                  'assets/sphere.gif', // Path to your spherical GIF in the assets folder
+                  width: 450, // Set the width of the GIF
+                  height: 450, // Set the height of the GIF
+                ),
+              ),
+            ],
           ),
         ),
-      ],
-    );
-  }
+      ),
+    ],
+  );
+}
 }

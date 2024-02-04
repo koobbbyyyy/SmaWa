@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 
-class FancyPulsatingButton extends StatefulWidget {
+class JarvisButton extends StatefulWidget {
   final VoidCallback onPressed;
 
-  const FancyPulsatingButton({Key? key, required this.onPressed}) : super(key: key);
+  const JarvisButton({Key? key, required this.onPressed}) : super(key: key);
 
   @override
-  _FancyPulsatingButtonState createState() => _FancyPulsatingButtonState();
+  _JarvisButtonState createState() => _JarvisButtonState();
 }
 
-class _FancyPulsatingButtonState extends State<FancyPulsatingButton>
-    with SingleTickerProviderStateMixin {
+class _JarvisButtonState extends State<JarvisButton> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
 
@@ -49,41 +48,28 @@ class _FancyPulsatingButtonState extends State<FancyPulsatingButton>
       animation: _animation,
       builder: (context, child) {
         return Transform.scale(
-          scale: 1.0 + _animation.value * 0.3, // Scale up to 1.3
+          scale: 1.0 + _animation.value * 0.3,
           child: Transform.rotate(
-            angle: _animation.value * 0.2, // Rotate slightly
+            angle: _animation.value * 0.2,
             child: ElevatedButton(
               onPressed: widget.onPressed,
               style: ElevatedButton.styleFrom(
                 shape: const CircleBorder(),
-                padding: const EdgeInsets.all(24), // Adjust the padding to control button size
+                padding: const EdgeInsets.all(24),
                 elevation: 10,
-                primary: Colors.transparent, // Transparent background
-                onPrimary: Colors.blue, // Color when pressed
-                shadowColor: Colors.blueAccent, // Shadow color
+                primary: Colors.black, // Background color (can be changed to the Jarvis theme color)
+                onPrimary: Colors.blue, // Text color (can be changed)
+                shadowColor: Colors.blueAccent, // Shadow color (can be changed)
               ),
               child: Container(
-                width: 120,
-                height: 120,
+                width: 270,
+                height: 270,
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  gradient: LinearGradient(
-                    colors: [Colors.blue, Colors.lightBlue],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
-                ),
-                child: const Center(
-                  child: Icon(
-                    Icons.camera,
-                    size: 48,
-                    color: Colors.white,
-                  ),
-                ),
               ),
             ),
           ),
-        );
+        ));
       },
     );
   }
