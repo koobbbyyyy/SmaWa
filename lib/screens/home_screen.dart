@@ -1,13 +1,10 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'dart:typed_data';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:camera/camera.dart'; // Import the camera package
-import 'package:path/path.dart' as path;
-import 'package:path_provider/path_provider.dart';
 import 'package:smawa/routing/AppRouter.dart';
 import 'package:smawa/services/aws.dart';
+import 'package:smawa/services/camera.dart';
 import 'package:smawa/widgets/pulsating_button.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -19,25 +16,22 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   final AwsService awsService = AwsService();
-  late CameraController _cameraController;
-  List<CameraDescription> cameras = [];
+  late CameraService cameraService;
 
   @override
   void initState() {
     super.initState();
+    cameraService = CameraService(); 
     _initializeCamera();
   }
 
   Future<void> _initializeCamera() async {
-    cameras = await availableCameras();
-    _cameraController = CameraController(cameras[0], ResolutionPreset.medium);
-    await _cameraController.initialize();
+    await cameraService.initializeCamera(); // Use cameraService to initialize the camera
   }
 
   Future<void> _capturePhoto() async {
     try {
-      final XFile picture = await _cameraController.takePicture();
-      late final File imageFile = File(picture.path);
+      final XFile picture = await cameraService.capturePhoto();
       final imageBytes = await _loadImageBytes(picture.path);
       print('path');
       print(picture.path);
@@ -45,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       // Call your detectFaces function with imageBytes
       detectFaces(imageBytes);
     } catch (e) {
-      print('hallo');
+      print('Fehler Bild konnte nicht geladen oder gefunden werden');
       print(e);
     }
   }
@@ -90,7 +84,7 @@ Future<Uint8List> _loadImageBytes(String imagePath) async {
 }
   @override
   void dispose() {
-    _cameraController.dispose();
+    cameraService.disposeCamera();
     super.dispose();
   }
 
