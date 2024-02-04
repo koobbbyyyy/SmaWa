@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smawa/widgets/pulsating_button.dart';
+import 'package:smawa/routing/AppRouter.dart'; // Import your AppRouter
 
 class MaleThirtyOneToFourty extends StatelessWidget {
   final String ageGroup;
@@ -9,28 +9,26 @@ class MaleThirtyOneToFourty extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Hier könnten Sie die Inhalte basierend auf ageGroup und gender anpassen
     return Scaffold(
       appBar: AppBar(
         title: Text('$gender $ageGroup Werbung'),
       ),
-    body: Center(
-  child: Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: <Widget>[
-      Text('Werbung für Männer $gender im Alter von 31-40 $ageGroup'),
-      // Button Test
-    /*   PulsatingButton(
-          onPressed: () {
-            // Add your click logic here
-            print('Button Pressed');
-          },
-        ), */
-      // Add more Text widgets as needed
-    ],
-  ),
-),
-
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text('Werbung für Männer $gender im Alter von 31-40 $ageGroup'),
+            ElevatedButton(
+              onPressed: () {
+                // Navigate back to the home screen
+                AppRouter.router.go('/');
+              },
+              child: Text('Go Back to Home'),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
+

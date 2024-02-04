@@ -1,3 +1,5 @@
+import 'package:aws_rekognition_api/rekognition-2016-06-27.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smawa/screens/female/female-0-6%20_screen.dart';
 import 'package:smawa/screens/female/female-13-20_screen.dart';
@@ -20,6 +22,45 @@ import 'package:smawa/screens/male/male-7-12_screen.dart';
 class AppRouter {
   static final String ageGroup = '0-6';
   static final String gender = 'male';
+
+  static void navigateBasedOnAgeAndGender(
+      BuildContext context, int age, GenderType gender) {
+    String route = '/'; // Default route
+
+    // Mapping age and gender to routes
+    if (gender == GenderType.male) {
+      route = _getMaleRoute(age);
+    } else if (gender == GenderType.female) {
+      route = _getFemaleRoute(age);
+    }
+
+    // Navigate using GoRouter
+    if (route != '/') {
+      router.go(route);
+    }
+  }
+
+  static String _getMaleRoute(int age) {
+    if (age <= 6) return '/maleZeroToSix';
+    else if (age <= 12) return '/maleSevenToTwelve';
+    else if (age <= 20) return '/maleThirteenToTwenty';
+    else if (age <= 30) return '/maleTwentyOneToThirty';
+    else if (age <= 40) return '/maleThirtyOneToFourty';
+    else if (age <= 50) return '/maleFourtyOneToFifty';
+    else if (age <= 60) return '/maleFiftyOneToSixty';
+    else return '/maleSixtyOneToOneHundredTwenty';
+  }
+
+  static String _getFemaleRoute(int age) {
+    if (age <= 6) return '/femaleZeroToSix';
+    else if (age <= 12) return '/femaleSevenToTwelve';
+    else if (age <= 20) return '/femaleThirteenToTwenty';
+    else if (age <= 30) return '/femaleTwentyOneToThirty';
+    else if (age <= 40) return '/femaleThirtyOneToFourty';
+    else if (age <= 50) return '/femaleFourtyOneToFifty';
+    else if (age <= 60) return '/femaleFiftyOneToSixty';
+    else return '/femaleSixtyOneToOneHundredTwenty';
+  }
 
 
  static final router = GoRouter(

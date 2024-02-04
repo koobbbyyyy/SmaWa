@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         print(gender);
 
         // call function to navigate baed on age and gender
-        _navigateBasedOnAgeAndGender(context, estimatedAge, gender); 
+        AppRouter.navigateBasedOnAgeAndGender(context, estimatedAge, gender!); 
       } else {
         print("No faces detected.");
       }
@@ -55,46 +55,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     } catch (e) {
       print(e);
     }
-  }
-
-  // navigation method
-  void _navigateBasedOnAgeAndGender(BuildContext context, int age, gender) {
-    final goRouter = AppRouter.router;
-    String route = '/'; // Default route
-
-    // Mapping age and gender to routes
-    if (gender == GenderType.male) {
-      route = _getMaleRoute(age);
-    } else if (gender == GenderType.female) {
-      route = _getFemaleRoute(age);
-    }
-
-    // Navigate using GoRouter
-    if (route != '/') {
-      goRouter.go('$route');
-    }
-  }
-
-  String _getMaleRoute(int age) {
-    if (age <= 6) return '/maleZeroToSix';
-    else if (age <= 12) return '/maleSevenToTwelve';
-    else if (age <= 20) return '/maleThirteenToTwenty';
-    else if (age <= 30) return '/maleTwentyOneToThirty';
-    else if (age <= 40) return '/maleThirtyOneToFourty';
-    else if (age <= 50) return '/maleFourtyOneToFifty';
-    else if (age <= 60) return '/maleFiftyOneToSixty';
-    else return '/maleSixtyOneToOneHundredTwenty';
-  }
-
-  String _getFemaleRoute(int age) {
-    if (age <= 6) return '/femaleZeroToSix';
-    else if (age <= 12) return '/femaleSevenToTwelve';
-    else if (age <= 20) return '/femaleThirteenToTwenty';
-    else if (age <= 30) return '/femaleTwentyOneToThirty';
-    else if (age <= 40) return '/femaleThirtyOneToFourty';
-    else if (age <= 50) return '/femaleFourtyOneToFifty';
-    else if (age <= 60) return '/femaleFiftyOneToSixty';
-    else return '/femaleSixtyOneToOneHundredTwenty';
   }
 
   Future<Uint8List> _loadImageBytes(String imageName) async {
