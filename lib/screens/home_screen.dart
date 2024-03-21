@@ -5,7 +5,7 @@ import 'package:camera/camera.dart';
 import 'package:smawa/routing/AppRouter.dart';
 import 'package:smawa/services/aws.dart';
 import 'package:smawa/services/camera.dart';
-import 'package:smawa/widgets/homescreen_ai_texts.dart';
+import 'package:smawa/widgets/homescreen_texts.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -56,13 +56,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         final gender = faceDetail.gender?.value;
         this.ageHigh = ageHigh;
         this.ageLow = ageLow;
+        print(estimatedAge);
+        print(gender);
+        print(response);
 
-        // Set isTextVisible to true
+        // Set isTextVisible to true and refresh ui
         setState(() {
           isTextVisible = true;
         });
 
-        // Call function to navigate based on age and gender
+        // Call function to navigate based on age and gender with delay to have time to show the text
         Future.delayed(Duration(seconds: 3), () {
           AppRouter.navigateBasedOnAgeAndGender(context, estimatedAge, gender!);
         });
@@ -74,6 +77,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     }
   }
 
+  // load the image 
   Future<Uint8List> _loadImageBytes(String imagePath) async {
     try {
       final file = File(imagePath);
@@ -90,12 +94,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     }
   }
 
+  // end cameraservice
   @override
   void dispose() {
     cameraService.disposeCamera();
     super.dispose();
   }
 
+  // ui
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -129,6 +135,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   visible: isTextVisible,
                   child: Column(
                     children: [
+                      // homescreen_
                      HomeTextWidget(ageLow: ageLow, ageHigh: ageHigh,),
                     ],
                   ),
