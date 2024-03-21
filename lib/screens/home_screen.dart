@@ -66,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         });
 
         // Call function to navigate based on age and gender with delay to have time to show the text
-        Future.delayed(Duration(seconds: 3), () {
+        Future.delayed(Duration(seconds: 2), () {
           AppRouter.navigateBasedOnAgeAndGender(context, estimatedAge, gender!);
         });
       } else {
@@ -103,48 +103,51 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   // ui
   @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.black, Colors.black87],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
+Widget build(BuildContext context) {
+  return Stack(
+    children: [
+      Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.white, Colors.white],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
         ),
-        Scaffold(
-          backgroundColor: Colors.transparent,
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                GestureDetector(
-                  onTap: _capturePhoto,
-                  child: Image.asset(
-                    'assets/sphere.gif',
-                    width: 450,
-                    height: 450,
-                  ),
+      ),
+      Scaffold(
+        backgroundColor: Colors.white,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              GestureDetector(
+                onTap: _capturePhoto,
+                child: Image.asset(
+                  'assets/home.png',
+                  width: 600,
+                  height: 600,
                 ),
-                const SizedBox(height: 20),
-                // Use Visibility widget to control text visibility
-                Visibility(
-                  visible: isTextVisible,
-                  child: Column(
-                    children: [
-                      // homescreen_
-                     HomeTextWidget(ageLow: ageLow, ageHigh: ageHigh,),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 20),
+            ],
           ),
         ),
-      ],
-    );
-  }
+      ),
+      // Positioned widget to place HomeTextWidget on top of the image
+      Positioned(
+        top: 285,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        child: Visibility(
+          visible: isTextVisible,
+          child: Center(
+            child: HomeTextWidget(ageLow: ageLow, ageHigh: ageHigh),
+          ),
+        ),
+      ),
+    ],
+  );
+}
 }

@@ -57,7 +57,7 @@ class _JarvisButtonState extends State<JarvisButton> with SingleTickerProviderSt
                 shape: const CircleBorder(),
                 padding: const EdgeInsets.all(24),
                 elevation: 10,
-                primary: Colors.black, // Background color (can be changed to the Jarvis theme color)
+                primary: Colors.white, // Background color (can be changed to the Jarvis theme color)
                 onPrimary: Colors.blue, // Text color (can be changed)
                 shadowColor: Colors.blueAccent, // Shadow color (can be changed)
               ),

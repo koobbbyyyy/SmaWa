@@ -21,7 +21,7 @@ class _HomeTextWidgetState extends State<HomeTextWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TypewriterAnimatedTextKit(
+      /*   TypewriterAnimatedTextKit(
           totalRepeatCount: 1, // Set the repeat count to 1 to type the text once
           speed: const Duration(milliseconds: 50), // Adjust typing speed as needed
           text: ['I think you are between ${widget.ageLow} and ${widget.ageHigh}'],
@@ -50,7 +50,10 @@ class _HomeTextWidgetState extends State<HomeTextWidget> {
             fontSize: 18,
           ),
           displayFullTextOnTap: true,
-        ),
+        ), */
+         CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+          ),
       ],
     );
   }

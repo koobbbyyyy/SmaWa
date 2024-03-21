@@ -29,6 +29,9 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - assets/presentation.png
+    - assets/home.png
     - assets/sphere.gif
     - assets/image1.jpg
+    - assets/shoe1.png
     - secrets.env
