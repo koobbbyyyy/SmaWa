@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     final goRouter = AppRouter.router;
 
     return MaterialApp.router(
-      title: 'SmaWa',
+      title: 'Schuhwerk Jung - Hochschule Ravensburg-Weingarten - Smartes Schaufenster',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.grey,

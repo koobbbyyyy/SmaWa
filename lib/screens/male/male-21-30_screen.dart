@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 import 'package:smawa/routing/AppRouter.dart';
 class MaleTwentyOneToThirty extends StatelessWidget {
   final String ageGroup;
@@ -8,6 +9,12 @@ class MaleTwentyOneToThirty extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+     Future.delayed(Duration(seconds: 10), () {
+    // Navigate back to the home screen after 10 seconds
+    AppRouter.router.go('/');
+  });
+
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -21,15 +28,15 @@ class MaleTwentyOneToThirty extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text('Werbung für Männer $gender im Alter von 21-30 $ageGroup'),
-                ElevatedButton(
+               /*  Text('Werbung für Männer $gender im Alter von 21-30 $ageGroup'), */
+               /*  ElevatedButton(
                   onPressed: () {
                     // Navigate back to the home screen
                     AppRouter.router.go('/');
                   },
                   child: const Text('Zurück zum Start'),
-                ),
-                SizedBox(height: 20), // Space between text and list
+                ), */
+                SizedBox(height: 100), // Space between text and list
                 // List of images
                 Expanded(
                   child: ListView.builder(

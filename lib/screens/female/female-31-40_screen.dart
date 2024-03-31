@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smawa/routing/AppRouter.dart';
 
 class FemaleThirtyOneToFourty extends StatelessWidget {
   final String ageGroup;
@@ -8,13 +9,24 @@ class FemaleThirtyOneToFourty extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Hier könnten Sie die Inhalte basierend auf ageGroup und gender anpassen
     return Scaffold(
       appBar: AppBar(
         title: Text('$gender $ageGroup Werbung'),
       ),
       body: Center(
-        child: Text('Werbung für $gender im Alter von $ageGroup'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text('Werbung für Männer $gender im Alter von 41-50 $ageGroup'),
+            ElevatedButton(
+              onPressed: () {
+                // Navigate back to the home screen
+                AppRouter.router.go('/');
+              },
+              child: const Text('Go Back to Home'),
+            ),
+          ],
+        ),
       ),
     );
   }

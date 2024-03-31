@@ -56,9 +56,19 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         final gender = faceDetail.gender?.value;
         this.ageHigh = ageHigh;
         this.ageLow = ageLow;
+
+        // properties for sql
+        final dbEstimatedAge = estimatedAge;
+        final dbBeard = faceDetail.beard?.value;
         print(estimatedAge);
         print(gender);
         print(response);
+        print(faceDetail.beard?.value);
+        print(faceDetail.emotions?.length);
+        print(faceDetail.eyeglasses?.value);
+        print(faceDetail.mustache?.value);
+        print(faceDetail.smile?.value);
+        print(faceDetail.sunglasses?.value);
 
         // Set isTextVisible to true and refresh ui
         setState(() {
@@ -66,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         });
 
         // Call function to navigate based on age and gender with delay to have time to show the text
-        Future.delayed(Duration(seconds: 2), () {
+        Future.delayed(Duration(seconds: 4), () {
           AppRouter.navigateBasedOnAgeAndGender(context, estimatedAge, gender!);
         });
       } else {
@@ -102,52 +112,121 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 
   // ui
-  @override
-Widget build(BuildContext context) {
-  return Stack(
-    children: [
-      Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.white, Colors.white],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-      ),
-      Scaffold(
-        backgroundColor: Colors.white,
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              GestureDetector(
-                onTap: _capturePhoto,
-                child: Image.asset(
-                  'assets/home.png',
-                  width: 600,
-                  height: 600,
-                ),
+ @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: _capturePhoto,
+      child: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.white, Colors.white],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
-              const SizedBox(height: 20),
-            ],
+            ),
           ),
-        ),
-      ),
-      // Positioned widget to place HomeTextWidget on top of the image
-      Positioned(
-        top: 285,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        child: Visibility(
-          visible: isTextVisible,
-          child: Center(
-            child: HomeTextWidget(ageLow: ageLow, ageHigh: ageHigh),
+          Scaffold(
+            backgroundColor: Colors.white,
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(height: 100),
+                  Image.asset('assets/logo.png'),
+                  SizedBox(height: 200),
+                  const Text(
+                    'Ich bin ein',
+                    style: TextStyle(
+                      fontSize: 42,
+                    ),
+                  ),
+                  SizedBox(height: 25),
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(20.0),
+                      bottomRight: Radius.circular(20.0),
+                    ),
+                    child: Container(
+                      padding: EdgeInsets.all(20.0),
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          top: BorderSide(width: 2.0, color: Colors.black),
+                          left: BorderSide(width: 2.0, color: Colors.black),
+                        ),
+                      ),
+                      child: const Text(
+                        'Smartes Schaufenster',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 42,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 150),
+                  const Text(
+                    'Stellen Sie sich davor',
+                    style: TextStyle(
+                      fontSize: 42,
+                    ),
+                  ),
+                  SizedBox(height: 25),
+                  const Text(
+                    'und entdecken Sie Ihre neuen',
+                    style: TextStyle(
+                      fontSize: 42,
+                    ),
+                  ),
+                  SizedBox(height: 25),
+                  const Text(
+                    'Lieblingsschuhe',
+                    style: TextStyle(
+                      fontSize: 42,
+                    ),
+                  ),
+                  SizedBox(height: 25),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        const Text(
+                              'Besuchen Sie uns auch auf unserer Homepage unter: https://schuhhaus-jung.de',
+                              style: TextStyle(
+                              fontSize: 20,
+                                     ),
+                              ),
+                              SizedBox(height: 25),
+                        SizedBox(
+                          width: 200,
+                          height: 200,
+                          child: Image.asset('assets/qrcode.png'),
+                        ),
+                        SizedBox(height: 20),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
-        ),
+          // Positioned widget to place HomeTextWidget on top of the image
+          Positioned(
+            top: 1185,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Visibility(
+              visible: isTextVisible,
+              child: Center(
+                child: HomeTextWidget(ageLow: ageLow, ageHigh: ageHigh),
+              ),
+            ),
+          ),
+        ],
       ),
-    ],
-  );
-}
+    );
+  }
 }

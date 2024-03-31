@@ -20,6 +20,11 @@ dependencies:
   camera: ^0.10.5+9
   progress_indicators: ^1.0.0
   animated_text_kit: ^4.2.2
+  sizer: ^2.0.15
+  sqflite: ^2.3.2
+  path: ^1.8.3
+  sqflite_common_ffi: ^2.3.0+4
+  loading_animation_widget: ^1.2.1
 
 dev_dependencies:
   flutter_test:
@@ -34,4 +39,6 @@ flutter:
     - assets/sphere.gif
     - assets/image1.jpg
     - assets/shoe1.png
+    - assets/logo.png
+    - assets/qrcode.png
     - secrets.env

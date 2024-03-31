@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class HomeTextWidget extends StatefulWidget {
   final int ageLow;
@@ -41,19 +42,22 @@ class _HomeTextWidgetState extends State<HomeTextWidget> {
           ),
           displayFullTextOnTap: true,
         ),
-        TypewriterAnimatedTextKit(
+        */
+                  LoadingAnimationWidget.prograssiveDots(
+        color: const Color.fromARGB(255, 216, 216, 216),
+        size: 200,
+      ),
+      TypewriterAnimatedTextKit(
           totalRepeatCount: 1,
           speed: const Duration(milliseconds: 50),
-          text: ['Let me check what we have for you...'],
+          text: ['Erstelle Vorschläge für Ihre neuen Lieblingsschuhe'],
           textStyle: const TextStyle(
-            color: Colors.white,
+            color:  const Color.fromARGB(255, 216, 216, 216),
             fontSize: 18,
+            decoration: TextDecoration.none,
           ),
           displayFullTextOnTap: true,
-        ), */
-         CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-          ),
+        ), 
       ],
     );
   }
