@@ -36,8 +36,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     try {
       final XFile picture = await cameraService.capturePhoto();
       final imageBytes = await _loadImageBytes(picture.path);
-      print('path');
+      print('________________________________');
+      print('Path where the Picture is stored');
       print(picture.path);
+      print('________________________________');
       detectFaces(imageBytes);
     } catch (e) {
       print('Fehler Bild konnte nicht geladen oder gefunden werden');
@@ -59,16 +61,38 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
         // properties for sql
         final dbEstimatedAge = estimatedAge;
-        final dbBeard = faceDetail.beard?.value;
+        final dbGender = gender;
+        final dbMustache = faceDetail.mustache?.value;
+        final dbSmile = faceDetail.smile?.value;
+        final dbSunglasses = faceDetail.sunglasses?.value;
+        final dbGlasses = faceDetail.eyeglasses?.value;
+        /* final dbEmotions = faceDetail.beard?.value; */
+        
+        print('Estimated Age');
         print(estimatedAge);
+        print('________________________________');
+        print('Gender');
         print(gender);
-        print(response);
+        print('________________________________');        
+        print('Beard');
         print(faceDetail.beard?.value);
-        print(faceDetail.emotions?.length);
-        print(faceDetail.eyeglasses?.value);
+        print('________________________________');
+        print('Mustache');
         print(faceDetail.mustache?.value);
+        print('________________________________');
+        print('Smile');
         print(faceDetail.smile?.value);
+        print('________________________________');
+        print('Sunglasses');
         print(faceDetail.sunglasses?.value);
+        print('________________________________');
+        print('Glasses');
+        print(faceDetail.eyeglasses?.value);
+        print('________________________________');
+        print('Emotions');
+        print(faceDetail.emotions?.length);
+        print('________________________________');
+
 
         // Set isTextVisible to true and refresh ui
         setState(() {

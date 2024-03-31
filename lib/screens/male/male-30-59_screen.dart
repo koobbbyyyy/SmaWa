@@ -9,6 +9,8 @@ class MaleThirtyToFiftyNine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+        print('class is m30-59');
      
     Future.delayed(Duration(seconds: 20), () {
       AppRouter.router.go('/');
@@ -30,13 +32,6 @@ class MaleThirtyToFiftyNine extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          ElevatedButton(
-            onPressed: () {
-              // Navigate back to the home screen
-              AppRouter.router.go('/');
-            },
-            child: const Text('Go Back to Home'),
-          ),
           // Background Image
           Image.asset(
             'assets/presentation.png', // Path to the background image file

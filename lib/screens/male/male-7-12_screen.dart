@@ -10,31 +10,14 @@ class MaleSevenToTwelve extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+        print('class is m7-12');
+     
     Future.delayed(Duration(seconds: 20), () {
       AppRouter.router.go('/');
     });
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('$gender $ageGroup Werbung'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text('Werbung für Männer $gender im Alter von 7-13 $ageGroup'),
-            GridView.builder(
-              shrinkWrap: true,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3, // Number of columns
-                crossAxisSpacing: 10, // Spacing between columns
-                mainAxisSpacing: 10, // Spacing between rows
-              ),
-              itemCount: 9, // Total number of images
-              itemBuilder: (BuildContext context, int index) {
-                // Define a list of image paths
-                List<String> imagePaths = [
-                  'assets/m7131.png', // Path to the first image
+    List<String> imagePaths = [
+      'assets/m7131.png', // Path to the first image
                   'assets/m7132.png', // Path to the second image
                   'assets/m7133.png', // Path to the third image
                   'assets/m7134.png', // Path to the fourth image
@@ -43,22 +26,51 @@ class MaleSevenToTwelve extends StatelessWidget {
                   'assets/m7137.png', // Path to the seventh image
                   'assets/m7138.png', // Path to the eighth image
                   'assets/m7139.png', // Path to the ninth image
-                ];
+    ];
 
-                // Load image from the list based on the current index
-                String imagePath = imagePaths[index];
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          // Background Image
+          Image.asset(
+            'assets/presentation.png', // Path to the background image file
+          ),
+          // Content
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const SizedBox(height: 200), // Space between text and list
+                  // List of images
+                  GridView.builder(
+                    shrinkWrap: true,
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3, // Number of columns
+                      crossAxisSpacing: 10, // Spacing between columns
+                      mainAxisSpacing: 10, // Spacing between rows
+                    ),
+                    itemCount: imagePaths.length, // Total number of images
+                    itemBuilder: (BuildContext context, int index) {
+                      // Load image from the list based on the current index
+                      String imagePath = imagePaths[index];
 
-                return Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Image.asset(
-                    imagePath,
-                    fit: BoxFit.contain,
+                      return Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Image.asset(
+                          imagePath,
+                          fit: BoxFit.contain,
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
+                ],
+              ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

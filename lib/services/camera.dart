@@ -5,10 +5,11 @@ class CameraService {
 
   Future<void> initializeCamera() async {
     final cameras = await availableCameras();
-    print(cameras);
+    // show avalable cams
+/*     print(cameras);
     print(cameras[0]);
-    print(cameras[1]);
-    _cameraController = CameraController(cameras[0], ResolutionPreset.medium); // kamera inter [0] extern [1]
+    print(cameras[1]); */
+    _cameraController = CameraController(cameras[0], ResolutionPreset.medium); // kamera intern [0] extern [1]
     await _cameraController.initialize();
   }
 
