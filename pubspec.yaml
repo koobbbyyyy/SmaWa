@@ -41,4 +41,94 @@ flutter:
     - assets/shoe1.png
     - assets/logo.png
     - assets/qrcode.png
+    - assets/m061.png
+    - assets/m062.png
+    - assets/m063.png
+    - assets/m064.png
+    - assets/m065.png
+    - assets/m066.png
+    - assets/m067.png
+    - assets/m068.png
+    - assets/m069.png
+    - assets/m7131.png
+    - assets/m7132.png
+    - assets/m7133.png
+    - assets/m7134.png
+    - assets/m7135.png
+    - assets/m7136.png
+    - assets/m7137.png
+    - assets/m7138.png
+    - assets/m7139.png
+    - assets/m15291.png
+    - assets/m15292.png
+    - assets/m15293.png
+    - assets/m15294.png
+    - assets/m15295.png
+    - assets/m15296.png
+    - assets/m15297.png
+    - assets/m15298.png
+    - assets/m15299.png    
+    - assets/m30591.png  # New asset
+    - assets/m30592.png  # New asset
+    - assets/m30593.png  # New asset
+    - assets/m30594.png  # New asset
+    - assets/m30595.png  # New asset
+    - assets/m30596.png  # New asset
+    - assets/m30597.png  # New asset
+    - assets/m30598.png  # New asset
+    - assets/m30599.png  # New asset
+    - assets/m601001.png  # Add m601001.png
+    - assets/m601002.png  # Add m601002.png
+    - assets/m601003.png  # Add m601003.png
+    - assets/m601004.png  # Add m601004.png
+    - assets/m601005.png  # Add m601005.png
+    - assets/m601006.png  # Add m601006.png
+    - assets/m601007.png  # Add m601007.png
+    - assets/m601008.png  # Add m601008.png
+    - assets/m601009.png  # Add m601009.png    
+    - assets/w061.png
+    - assets/w062.png
+    - assets/w063.png
+    - assets/w064.png
+    - assets/w065.png
+    - assets/w066.png
+    - assets/w067.png
+    - assets/w068.png
+    - assets/w069.png
+    - assets/w7131.png
+    - assets/w7132.png
+    - assets/w7133.png
+    - assets/w7134.png
+    - assets/w7135.png
+    - assets/w7136.png
+    - assets/w7137.png
+    - assets/w7138.png
+    - assets/w7139.png
+    - assets/w15291.png
+    - assets/w15292.png
+    - assets/w15293.png
+    - assets/w15294.png
+    - assets/w15295.png
+    - assets/w15296.png
+    - assets/w15297.png
+    - assets/w15298.png
+    - assets/w15299.png
+    - assets/w30591.png  # New asset
+    - assets/w30592.png  # New asset
+    - assets/w30593.png  # New asset
+    - assets/w30594.png  # New asset
+    - assets/w30595.png  # New asset
+    - assets/w30596.png  # New asset
+    - assets/w30597.png  # New asset
+    - assets/w30598.png  # New asset
+    - assets/w30599.png  # New asset
+    - assets/w601001.png  # Add w601001.png
+    - assets/w601002.png  # Add w601002.png
+    - assets/w601003.png  # Add w601003.png
+    - assets/w601004.png  # Add w601004.png
+    - assets/w601005.png  # Add w601005.png
+    - assets/w601006.png  # Add w601006.png
+    - assets/w601007.png  # Add w601007.png
+    - assets/w601008.png  # Add w601008.png
+    - assets/w601009.png
     - secrets.env

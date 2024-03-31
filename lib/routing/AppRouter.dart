@@ -75,11 +75,11 @@ class AppRouter {
         ),
         GoRoute(
           path: '/maleThirtyToFiftyNine',
-          builder: (context, state) => const maleThirtyToFiftyNine(ageGroup: '', gender: '',),
+          builder: (context, state) => const MaleThirtyToFiftyNine(ageGroup: '', gender: '',),
         ),
         GoRoute(
           path: '/maleSixtyToOneHundred',
-          builder: (context, state) => const maleSixtyToOneHundred(ageGroup: '', gender: '',),
+          builder: (context, state) => const MaleSixtyToOneHundred(ageGroup: '', gender: '',),
         ),
         GoRoute(
           path: '/femaleZeroToSix',

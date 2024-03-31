@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smawa/routing/AppRouter.dart';
 
 class MaleZeroToSix extends StatelessWidget {
   final String ageGroup;
@@ -8,13 +9,58 @@ class MaleZeroToSix extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Hier könnten Sie die Inhalte basierend auf ageGroup und gender anpassen
     return Scaffold(
       appBar: AppBar(
         title: Text('$gender $ageGroup Werbung'),
       ),
       body: Center(
-        child: Text('Werbung für Männer $gender im Alter von 0-6 $ageGroup'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text('Werbung für Männer $gender im Alter von 0-6 $ageGroup'),
+            GridView.builder(
+              shrinkWrap: true,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3, // Number of columns
+                crossAxisSpacing: 10, // Spacing between columns
+                mainAxisSpacing: 10, // Spacing between rows
+              ),
+              itemCount: 9, // Total number of images
+              itemBuilder: (BuildContext context, int index) {
+                // Define a list of image paths
+                List<String> imagePaths = [
+                  'assets/m061.png', // Path to the first image
+                  'assets/m062.png', // Path to the second image
+                  'assets/m063.png', // Path to the third image
+                  'assets/m064.png', // Path to the fourth image
+                  'assets/m065.png', // Path to the fifth image
+                  'assets/m066.png', // Path to the sixth image
+                  'assets/m067.png', // Path to the seventh image
+                  'assets/m068.png', // Path to the eighth image
+                  'assets/m069.png', // Path to the ninth image
+                ];
+
+                // Load image from the list based on the current index
+                String imagePath = imagePaths[index];
+
+                return Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Image.asset(
+                    imagePath,
+                    fit: BoxFit.contain,
+                  ),
+                );
+              },
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // Navigate back to the home screen
+                AppRouter.router.go('/');
+              },
+              child: const Text('Go Back to Home'),
+            ),
+          ],
+        ),
       ),
     );
   }
