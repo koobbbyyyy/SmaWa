@@ -9,6 +9,11 @@ class FemaleZeroToSix extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    Future.delayed(Duration(seconds: 20), () {
+      AppRouter.router.go('/');
+    });
+
     return Scaffold(
       appBar: AppBar(
         title: Text('$gender $ageGroup Werbung'),
@@ -52,13 +57,7 @@ class FemaleZeroToSix extends StatelessWidget {
                 );
               },
             ),
-            ElevatedButton(
-              onPressed: () {
-                // Navigate back to the home screen
-                AppRouter.router.go('/');
-              },
-              child: const Text('Go Back to Home'),
-            ),
+        
           ],
         ),
       ),

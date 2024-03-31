@@ -9,6 +9,11 @@ class MaleThirtyToFiftyNine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     
+    Future.delayed(Duration(seconds: 20), () {
+      AppRouter.router.go('/');
+    });
+
     List<String> imagePaths = [
       'assets/m30591.png', // Path to the ninth image
       'assets/m30592.png', // Path to the tenth image
