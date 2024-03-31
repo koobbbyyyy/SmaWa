@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class FemaleFiftyOneToSixty extends StatelessWidget {
+class FemaleThirtyToFiftyNine extends StatelessWidget {
   final String ageGroup;
   final String gender;
 
-  const FemaleFiftyOneToSixty({Key? key, required this.ageGroup, required this.gender}) : super(key: key);
+  const FemaleThirtyToFiftyNine({Key? key, required this.ageGroup, required this.gender}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

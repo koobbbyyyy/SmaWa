@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:smawa/routing/AppRouter.dart';
 
-class MaleThirteenToTwenty extends StatelessWidget {
+class MaleThirteenToTwentyNine extends StatelessWidget {
   final String ageGroup;
   final String gender;
 
-  const MaleThirteenToTwenty({Key? key, required this.ageGroup, required this.gender}) : super(key: key);
+  const MaleThirteenToTwentyNine({Key? key, required this.ageGroup, required this.gender}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class MaleThirteenToTwenty extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('Werbung für Männer $gender im Alter von 13-20 $ageGroup'),
+            Text('Werbung für Männer $gender im Alter von 13-29 $ageGroup'),
             ElevatedButton(
               onPressed: () {
                 // Navigate back to the home screen

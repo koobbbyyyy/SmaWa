@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class MaleSixtyOneToOneHundredTwenty extends StatelessWidget {
+class FemaleThirteenToTwentyNine extends StatelessWidget {
   final String ageGroup;
   final String gender;
 
-  const MaleSixtyOneToOneHundredTwenty({Key? key, required this.ageGroup, required this.gender}) : super(key: key);
+  const FemaleThirteenToTwentyNine({Key? key, required this.ageGroup, required this.gender}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class MaleSixtyOneToOneHundredTwenty extends StatelessWidget {
         title: Text('$gender $ageGroup Werbung'),
       ),
       body: Center(
-        child: Text('Werbung für Männer $gender im Alter von 61-120 $ageGroup'),
+        child: Text('Werbung für $gender im Alter von $ageGroup'),
       ),
     );
   }
