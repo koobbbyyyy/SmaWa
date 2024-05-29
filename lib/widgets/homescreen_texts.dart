@@ -45,7 +45,7 @@ class _HomeTextWidgetState extends State<HomeTextWidget> {
         */
                   LoadingAnimationWidget.prograssiveDots(
         color: const Color.fromARGB(255, 216, 216, 216),
-        size: 200,
+        size: 100,
       ),
       TypewriterAnimatedTextKit(
           totalRepeatCount: 1,

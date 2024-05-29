@@ -45,3 +45,4 @@ app.*.map.json
 
 # Ignore secrets.env file
 secrets.env
+rwusecrets.env

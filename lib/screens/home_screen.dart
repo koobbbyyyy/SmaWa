@@ -59,15 +59,18 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         this.ageHigh = ageHigh;
         this.ageLow = ageLow;
 
-        // properties for sql
-        final dbEstimatedAge = estimatedAge;
-        final dbGender = gender;
-        final dbMustache = faceDetail.mustache?.value;
-        final dbSmile = faceDetail.smile?.value;
-        final dbSunglasses = faceDetail.sunglasses?.value;
-        final dbGlasses = faceDetail.eyeglasses?.value;
-        /* final dbEmotions = faceDetail.beard?.value; */
-        
+       
+      // properties for sql
+      final dbEstimatedAge = estimatedAge;
+      final dbGender = gender.toString();
+      final dbMustache = faceDetail.mustache?.value.toString();
+      final dbBeard = faceDetail.beard?.value.toString();
+      final dbSmile = faceDetail.smile?.value.toString();
+      final dbSunglasses = faceDetail.sunglasses?.value.toString();
+      final dbGlasses = faceDetail.eyeglasses?.value.toString();
+      final dbEmotion1Type =  faceDetail.emotions?[0].type.toString();
+      final dbEmotion1Confidence = faceDetail.emotions![0].confidence;
+
         print('Estimated Age');
         print(estimatedAge);
         print('________________________________');
@@ -91,6 +94,20 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         print('________________________________');
         print('Emotions');
         print(faceDetail.emotions?.length);
+      if (faceDetail.emotions != null) {
+        for (int i = 0; i < 8; i++) {
+          if (i < faceDetail.emotions!.length) {
+            print("Emotion $i:");
+            print("Length: ${faceDetail.emotions!.length}");
+            print("Type: ${faceDetail.emotions![i].type}");
+            print("Confidence: ${faceDetail.emotions![i].confidence}");
+          } else {
+            print("Emotion $i: No data available");
+          }
+        }
+      } else {
+        print("No emotions data available");
+      }
         print('________________________________');
 
 
@@ -158,9 +175,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  SizedBox(height: 100),
+                  SizedBox(height: 50),
                   Image.asset('assets/logo.png'),
-                  SizedBox(height: 200),
+                  SizedBox(height: 50),
                   const Text(
                     'Ich bin ein',
                     style: TextStyle(
@@ -190,7 +207,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       ),
                     ),
                   ),
-                  SizedBox(height: 150),
+                  SizedBox(height: 100),
                   const Text(
                     'Stellen Sie sich davor',
                     style: TextStyle(
@@ -238,7 +255,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ),
           // Positioned widget to place HomeTextWidget on top of the image
           Positioned(
-            top: 1185,
+            top: 515,
             left: 0,
             right: 0,
             bottom: 0,

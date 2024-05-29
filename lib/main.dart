@@ -3,7 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:smawa/routing/AppRouter.dart';
 
 Future<void> main() async {
-  await dotenv.load(fileName: 'secrets.env');
+  await dotenv.load(fileName: 'rwusecrets.env');
   runApp(const MyApp());
 }
 class MyApp extends StatelessWidget {

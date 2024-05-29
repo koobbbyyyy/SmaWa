@@ -25,6 +25,7 @@ dependencies:
   path: ^1.8.3
   sqflite_common_ffi: ^2.3.0+4
   loading_animation_widget: ^1.2.1
+  logger: ^2.2.0
 
 dev_dependencies:
   flutter_test:
@@ -132,3 +133,4 @@ flutter:
     - assets/w601008.png  # Add w601008.png
     - assets/w601009.png
     - secrets.env
+    - rwusecrets.env
