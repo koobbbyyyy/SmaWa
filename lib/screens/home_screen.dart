@@ -51,56 +51,34 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     try {
       final response = await awsService.detectFaces(imageBytes);
       if (response.faceDetails != null && response.faceDetails!.isNotEmpty) {
+        // save properties for routing
         final faceDetail = response.faceDetails!.first;
         final ageLow = faceDetail.ageRange?.low ?? 0;
         final ageHigh = faceDetail.ageRange?.high ?? 0;
         final estimatedAge = (ageLow + ageHigh) ~/ 2;
         final gender = faceDetail.gender?.value;
+        final smile = faceDetail.smile?.value;
         this.ageHigh = ageHigh;
-        this.ageLow = ageLow;
+        this.ageLow = ageLow;      
+        double? emotionHappyConfidence;
+        double? emotionAngryConfidence;
 
-       
-      // properties for sql
-      final dbEstimatedAge = estimatedAge;
-      final dbGender = gender.toString();
-      final dbMustache = faceDetail.mustache?.value.toString();
-      final dbBeard = faceDetail.beard?.value.toString();
-      final dbSmile = faceDetail.smile?.value.toString();
-      final dbSunglasses = faceDetail.sunglasses?.value.toString();
-      final dbGlasses = faceDetail.eyeglasses?.value.toString();
-      final dbEmotion1Type =  faceDetail.emotions?[0].type.toString();
-      final dbEmotion1Confidence = faceDetail.emotions![0].confidence;
-
-        print('Estimated Age');
-        print(estimatedAge);
-        print('________________________________');
-        print('Gender');
-        print(gender);
-        print('________________________________');        
-        print('Beard');
-        print(faceDetail.beard?.value);
-        print('________________________________');
-        print('Mustache');
-        print(faceDetail.mustache?.value);
-        print('________________________________');
-        print('Smile');
-        print(faceDetail.smile?.value);
-        print('________________________________');
-        print('Sunglasses');
-        print(faceDetail.sunglasses?.value);
-        print('________________________________');
-        print('Glasses');
-        print(faceDetail.eyeglasses?.value);
-        print('________________________________');
-        print('Emotions');
-        print(faceDetail.emotions?.length);
+      // save emotions for routing  
       if (faceDetail.emotions != null) {
         for (int i = 0; i < 8; i++) {
           if (i < faceDetail.emotions!.length) {
-            print("Emotion $i:");
-            print("Length: ${faceDetail.emotions!.length}");
-            print("Type: ${faceDetail.emotions![i].type}");
-            print("Confidence: ${faceDetail.emotions![i].confidence}");
+            if(faceDetail.emotions![i].type.toString() == 'EmotionName.happy' ) {
+              print('Hier sehen sie wie das Schaufenster die Emotion happy einschätzt');
+               final emotionHappyConfidence = faceDetail.emotions![i].confidence;
+               print('happy Confidence in Prozent: _____________________________');
+               print(emotionHappyConfidence);
+            }
+            if(faceDetail.emotions![i].type.toString() == 'EmotionName.angry' ) {
+              print('Hier sehen sie wie das Schaufenster die Emotion angry einschätzt');
+               final emotionAngryConfidence = faceDetail.emotions![i].confidence;
+               print('angry_____________________________');
+               print(emotionAngryConfidence);
+            }
           } else {
             print("Emotion $i: No data available");
           }
@@ -108,18 +86,17 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       } else {
         print("No emotions data available");
       }
-        print('________________________________');
-
-
-        // Set isTextVisible to true and refresh ui
+     
+        // Set isTextVisible to true and refresh ui to show loading animation
         setState(() {
           isTextVisible = true;
         });
 
         // Call function to navigate based on age and gender with delay to have time to show the text
         Future.delayed(Duration(seconds: 4), () {
-          AppRouter.navigateBasedOnAgeAndGender(context, estimatedAge, gender!);
+          AppRouter.navigateBasedOnAgeAndGender(context, estimatedAge, gender!, smile!, emotionHappyConfidence?? 0.0, emotionAngryConfidence?? 0.0);
         });
+
       } else {
         print("No faces detected.");
       }
@@ -175,23 +152,23 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
                   Image.asset('assets/logo.png'),
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
                   const Text(
                     'Ich bin ein',
                     style: TextStyle(
                       fontSize: 42,
                     ),
                   ),
-                  SizedBox(height: 25),
+                  const SizedBox(height: 25),
                   ClipRRect(
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(20.0),
                       bottomRight: Radius.circular(20.0),
                     ),
                     child: Container(
-                      padding: EdgeInsets.all(20.0),
+                      padding: const EdgeInsets.all(20.0),
                       decoration: const BoxDecoration(
                         border: Border(
                           top: BorderSide(width: 2.0, color: Colors.black),
@@ -207,28 +184,28 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       ),
                     ),
                   ),
-                  SizedBox(height: 100),
+                  const SizedBox(height: 100),
                   const Text(
                     'Stellen Sie sich davor',
                     style: TextStyle(
                       fontSize: 42,
                     ),
                   ),
-                  SizedBox(height: 25),
+                  const SizedBox(height: 25),
                   const Text(
                     'und entdecken Sie Ihre neuen',
                     style: TextStyle(
                       fontSize: 42,
                     ),
                   ),
-                  SizedBox(height: 25),
+                  const SizedBox(height: 25),
                   const Text(
                     'Lieblingsschuhe',
                     style: TextStyle(
                       fontSize: 42,
                     ),
                   ),
-                  SizedBox(height: 25),
+                  const SizedBox(height: 25),
                   Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -239,13 +216,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               fontSize: 20,
                                      ),
                               ),
-                              SizedBox(height: 25),
+                              const SizedBox(height: 25),
                         SizedBox(
                           width: 200,
                           height: 200,
                           child: Image.asset('assets/qrcode.png'),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                       ],
                     ),
                   ),

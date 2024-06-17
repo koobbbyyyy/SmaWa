@@ -132,5 +132,4 @@ flutter:
     - assets/w601007.png  # Add w601007.png
     - assets/w601008.png  # Add w601008.png
     - assets/w601009.png
-    - secrets.env
     - rwusecrets.env
